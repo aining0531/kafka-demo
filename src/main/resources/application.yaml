@@ -1,0 +1,18 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: biz-event-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      # 在 Config 类中已覆盖 Deserializer，这里可省略或保持一致
+    listener:
+      ack-mode: manual
+      concurrency: 3
+      # 配置重试和死信队列 (可选但推荐)
+      error-handler: dlq-error-handler
+
+logging:
+  level:
+    org.springframework.kafka: INFO
+    com.example.kafka: DEBUG
